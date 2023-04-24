@@ -1,6 +1,35 @@
 import { Button, Card, CardBody, Input, Typography } from '@material-tailwind/react';
+import { useRouter } from 'next/router';
+
+const FATOR_R = 0.06;
+const PRO_LABORE = 0.28;
+const INSS = 0.11;
 
 export default function Calculate() {
+  const router = useRouter();
+  const amount = router.query?.amount ? Number(router.query?.amount) / 100 : 0;
+
+  function navigateToHome() {
+    router.back();
+  }
+
+  function getSimpleNational() {
+    const simpleNational = (amount * FATOR_R).toFixed(2);
+    return simpleNational;
+  }
+
+  function getInss() {
+    const proLabore = (amount * PRO_LABORE).toFixed(2);
+    return (Number(proLabore) * INSS).toFixed(2);
+  }
+
+  function getTotal() {
+    const simpleNational = getSimpleNational();
+    const inss = getInss();
+
+    return (Number(simpleNational) + Number(inss)).toFixed(2);
+  }
+
   return (
     <main className="flex min-h-screen w-11/12 max-w-xs items-center justify-center flex-col mx-auto space-y-4">
       <Card className="w-96">
@@ -13,24 +42,26 @@ export default function Calculate() {
             <Typography variant="h6" className="mb-2 text-left">
               INSS
             </Typography>
-            <Typography>R$ 148,44</Typography>
+            <Typography>R$ {getSimpleNational()}</Typography>
           </div>
 
           <div className="flex flex-row justify-between">
             <Typography variant="h6" className="mb-2 text-left">
               Simples Nacional
             </Typography>
-            <Typography>R$ 366,50</Typography>
+            <Typography>R$ {getInss()}</Typography>
           </div>
 
           <div className="flex flex-row justify-between">
             <Typography variant="h6" className="mb-2 text-left">
               Total
             </Typography>
-            <Typography>R$ 600</Typography>
+            <Typography>R$ {getTotal()}</Typography>
           </div>
 
-          <Button className="w-full mt-4">Voltar</Button>
+          <Button className="w-full mt-4" onClick={navigateToHome}>
+            Voltar
+          </Button>
         </CardBody>
       </Card>
     </main>
