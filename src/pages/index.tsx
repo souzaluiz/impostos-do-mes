@@ -1,19 +1,29 @@
+import { MAX_MONEY, extractNumber, numberToMoneyFormat } from '@/utils/money';
 import { Button, Input, Typography } from '@material-tailwind/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 export default function Home() {
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState(0);
   const router = useRouter();
 
   function handleClickCalculate() {
-    const cents = parseFloat(amount.replace(',', '.')) * 100;
-
     router.push({
       pathname: '/calcular',
-      query: { amount: cents },
+      query: { amount },
     });
   }
+
+  const handleChangeText = (text: string) => {
+    const number = extractNumber(text);
+    let money = number;
+
+    if (number > MAX_MONEY) money = MAX_MONEY;
+
+    if (number < 0) money = 0;
+
+    setAmount(money);
+  };
 
   return (
     <main className="flex min-h-screen w-11/12 max-w-xs items-center justify-center flex-col mx-auto space-y-4">
@@ -21,8 +31,9 @@ export default function Home() {
 
       <Input
         label="Faturamento mensal"
-        value={amount}
-        onChange={event => setAmount(event.target.value)}
+        inputMode="numeric"
+        value={numberToMoneyFormat(amount / 100)}
+        onChange={event => handleChangeText(event.target.value)}
       />
 
       <Button className="w-full" onClick={handleClickCalculate}>
