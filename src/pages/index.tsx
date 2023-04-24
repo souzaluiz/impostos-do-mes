@@ -1,5 +1,6 @@
 import { MAX_MONEY, extractNumber, numberToMoneyFormat } from '@/utils/money';
 import { Button, Input, Typography } from '@material-tailwind/react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -27,6 +28,10 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen w-11/12 max-w-xs items-center justify-center flex-col mx-auto space-y-4">
+      <Head>
+        <title>Impostos do Mês</title>
+      </Head>
+
       <Typography variant="h4">Impostos do mês</Typography>
 
       <Input

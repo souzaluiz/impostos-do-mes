@@ -1,4 +1,5 @@
 import { Button, Card, CardBody, Input, Typography } from '@material-tailwind/react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 const FATOR_R = 0.06;
@@ -32,6 +33,10 @@ export default function Calculate() {
 
   return (
     <main className="flex min-h-screen w-11/12 max-w-xs items-center justify-center flex-col mx-auto space-y-4">
+      <Head>
+        <title>Resultado</title>
+      </Head>
+
       <Card className="w-96">
         <CardBody>
           <Typography variant="h5" className="mb-4 text-center">
