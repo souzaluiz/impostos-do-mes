@@ -44,7 +44,7 @@ export default function Calculate() {
           </Typography>
 
           <div className="flex flex-row justify-between">
-            <Typography variant="h6" className="mb-2 text-left">              
+            <Typography variant="h6" className="mb-2 text-left">
               Simples Nacional
             </Typography>
             <Typography>R$ {getSimpleNational()}</Typography>
