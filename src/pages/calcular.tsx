@@ -1,7 +1,7 @@
 import { Button, Card, CardBody, Input, Typography } from '@material-tailwind/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useAmountStore } from './state/amount.state';
+import { useAmountStore } from '../state/amount.state';
 
 const FATOR_R = 0.06;
 const PRO_LABORE = 0.28;

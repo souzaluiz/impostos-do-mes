@@ -3,7 +3,7 @@ import { Button, Input, Typography } from '@material-tailwind/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useAmountStore } from './state/amount.state';
+import { useAmountStore } from '../state/amount.state';
 
 export default function Home() {
   const [amount, setAmount] = useState(0);
