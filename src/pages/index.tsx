@@ -3,16 +3,18 @@ import { Button, Input, Typography } from '@material-tailwind/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useAmountStore } from './state/amount.state';
 
 export default function Home() {
   const [amount, setAmount] = useState(0);
+
+  const updateAmount = useAmountStore(state => state.updateAmount);
+
   const router = useRouter();
 
   function handleClickCalculate() {
-    router.push({
-      pathname: '/calcular',
-      query: { amount },
-    });
+    updateAmount(amount / 100);
+    router.push({ pathname: '/calcular' });
   }
 
   const handleChangeText = (text: string) => {
@@ -41,7 +43,7 @@ export default function Home() {
         onChange={event => handleChangeText(event.target.value)}
       />
 
-      <Button className="w-full" onClick={handleClickCalculate}>
+      <Button className="w-full" onClick={handleClickCalculate} disabled={!amount}>
         Calcular
       </Button>
     </main>

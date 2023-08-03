@@ -1,6 +1,7 @@
 import { Button, Card, CardBody, Input, Typography } from '@material-tailwind/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useAmountStore } from './state/amount.state';
 
 const FATOR_R = 0.06;
 const PRO_LABORE = 0.28;
@@ -8,9 +9,12 @@ const INSS = 0.11;
 
 export default function Calculate() {
   const router = useRouter();
-  const amount = router.query?.amount ? Number(router.query?.amount) / 100 : 0;
+
+  const amount = useAmountStore(state => state.amount);
+  const clearAmount = useAmountStore(state => state.clearAmount);
 
   function navigateToHome() {
+    clearAmount();
     router.back();
   }
 
