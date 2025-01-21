@@ -6,6 +6,7 @@ import { useAmountStore } from '../state/amount.state';
 const FATOR_R = 0.06;
 const PRO_LABORE = 0.28;
 const INSS = 0.11;
+const CONTABILIDADE = 170;
 
 export default function Calculate() {
   const router = useRouter();
@@ -28,11 +29,16 @@ export default function Calculate() {
     return (Number(proLabore) * INSS).toFixed(2);
   }
 
+  function getContabilidade() {
+    return CONTABILIDADE.toFixed(2);
+  }
+
   function getTotal() {
     const simpleNational = getSimpleNational();
     const inss = getInss();
+    const contabilidade = getContabilidade();
 
-    return (Number(simpleNational) + Number(inss)).toFixed(2);
+    return (Number(simpleNational) + Number(inss) + Number(contabilidade)).toFixed(2);
   }
 
   return (
@@ -60,6 +66,15 @@ export default function Calculate() {
             </Typography>
             <Typography>R$ {getInss()}</Typography>
           </div>
+
+          <div className="flex flex-row justify-between">
+            <Typography variant="h6" className="mb-2 text-left">
+              Contabilidade
+            </Typography>
+            <Typography>R$ {getContabilidade()}</Typography>
+          </div>
+
+          <hr className="my-4" />
 
           <div className="flex flex-row justify-between">
             <Typography variant="h6" className="mb-2 text-left">
