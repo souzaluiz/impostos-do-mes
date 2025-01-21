@@ -29,16 +29,21 @@ export default function Calculate() {
     return (Number(proLabore) * INSS).toFixed(2);
   }
 
-  function getContabilidade() {
+  function getAccounting() {
     return CONTABILIDADE.toFixed(2);
   }
 
   function getTotal() {
     const simpleNational = getSimpleNational();
     const inss = getInss();
-    const contabilidade = getContabilidade();
+    const contabilidade = getAccounting();
 
     return (Number(simpleNational) + Number(inss) + Number(contabilidade)).toFixed(2);
+  }
+
+  function getNetAmount() {
+    const total = getTotal();
+    return (amount - Number(total)).toFixed(2);
   }
 
   return (
@@ -71,7 +76,7 @@ export default function Calculate() {
             <Typography variant="h6" className="mb-2 text-left">
               Contabilidade
             </Typography>
-            <Typography>R$ {getContabilidade()}</Typography>
+            <Typography>R$ {getAccounting()}</Typography>
           </div>
 
           <hr className="my-4" />
@@ -81,6 +86,13 @@ export default function Calculate() {
               Total
             </Typography>
             <Typography>R$ {getTotal()}</Typography>
+          </div>
+
+          <div className="flex flex-row justify-between">
+            <Typography variant="h6" className="mb-2 text-left">
+              Valor Líquido
+            </Typography>
+            <Typography>R$ {getNetAmount()}</Typography>
           </div>
 
           <Button className="w-full mt-4" onClick={navigateToHome}>
